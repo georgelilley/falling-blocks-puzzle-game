@@ -2,7 +2,7 @@ class Settings:
     """Class to manage the game settings."""
 
     def __init__(self):
-        """Create the game state"""
+        """Create the game state."""
         self.game_active = False
         self.active_falling_shape = False
 

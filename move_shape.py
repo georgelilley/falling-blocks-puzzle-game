@@ -51,7 +51,6 @@ class MoveShape:
                     if (value >= 20):
                         return False
             return True
-
     
     def execute_move(self):
         self.hero.block_coordinates = self.new_block_coordinates

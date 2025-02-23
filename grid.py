@@ -14,6 +14,7 @@ class Grid:
         """Initialise the grid."""
         self.grid = {}
         self.squares = pygame.sprite.Group()
+        print('self.grid = ', self.grid)
         for x in range(0, 10):
             for y in range(0, 20):
                 self.grid_square = Square(self, x, y)

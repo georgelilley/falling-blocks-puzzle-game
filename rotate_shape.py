@@ -17,22 +17,24 @@ class RotateShape:
 
         self.hero = hero
         
-    def clockwise(self):
+    def right(self):
         self._rotate(-90)
+        print(self.hero.block_coordinates)
 
-    def anticlockwise(self):
+    def left(self):
         self._rotate(90)
+        print(self.hero)
 
     def _rotate(self, degrees):
+        self.calculate_rotated_coordinates(degrees)
+        print(self.hero)
 
-
-        
     @track_method_call
     def calculate_rotated_coordinates(self, angle):
         self.rotated_coordinates = {}
         self.find_center_of_rotation()
-        for block, coordinates in self.block_coordinates.items():
-            x_value, y_value = self.get_individual_block_xy(coordinates)
+        for block, coordinates in self.hero.block_coordinates.items():
+            x_value, y_value = self.hero.get_individual_block_xy(coordinates)
             rotated_x_coordinate, rotated_y_coordinate = rotate_point(x_value, y_value, self.x_average, self.y_average, angle)
             rounded_rotated_x_coordinate = round(rotated_x_coordinate)
             rounded_rotated_y_coordinate = round(rotated_y_coordinate)
@@ -41,12 +43,12 @@ class RotateShape:
                 'y': rounded_rotated_y_coordinate
             }
             self.rotated_coordinates[block] = new_coordinate
-        self.block_coordinates = self.rotated_coordinates
+        self.hero.block_coordinates = self.rotated_coordinates
         
 
     def find_center_of_rotation(self):
         self.x_positions, self.y_positions = [], []
-        for block, coordinate in self.block_coordinates.items():
+        for block, coordinate in self.hero.block_coordinates.items():
             for axis, value in coordinate.items():
                 if axis == 'x':
                     self.x_positions.append(value)

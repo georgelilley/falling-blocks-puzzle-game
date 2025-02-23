@@ -6,7 +6,9 @@ class PlayerAction:
 
     def __init__(self, hero):
         self.settings = Settings
+        self.hero = hero
+
         self.move = MoveShape(hero)
-        self.rotate = RotateShape()
+        self.rotate = RotateShape(hero)
 
 

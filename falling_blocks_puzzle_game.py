@@ -16,13 +16,14 @@ class falling_blocks:
         """Initialise falling blocks game."""
         pygame.init()
         self.settings = Settings()
-        self.shapes = Shapes()
         self.screen = pygame.display.set_mode((self.settings.screen_width, 
                                                self.settings.screen_height))
+        
 
-        self.initialise_grid()
+        self.grid = Grid(self)
+        self.grid.initialise_squares()
+
         self.button = Button(self.screen)
-        self.random_shape = Random_Shape()
 
     def run_game(self):
         while True:
@@ -59,24 +60,24 @@ class falling_blocks:
             self.IsGameKeyPressed(event)
 
     def IsGameKeyPressed(self, event):
-        print('active')
+        #print('active')
         key_actions = {
             pygame.K_RIGHT: self.hero.player_action.move.right,
             pygame.K_LEFT: self.hero.player_action.move.left,
             pygame.K_DOWN: self.hero.player_action.move.down,
-            pygame.K_a: lambda: self.hero.rotate_degrees(90),
-            pygame.K_d: lambda: self.hero.rotate_degrees(-90)
+            pygame.K_a: self.hero.player_action.rotate.left,
+            pygame.K_d: self.hero.player_action.rotate.right
         }
         action = key_actions.get(event.key)
         if action:
             self.grid.reset()
-            print('reset here')
+            #print('reset here')
             action()
 
     def check_if_hero_moved(self):
         if self.hero.player_action.move.is_any_movement_method_called():
-            print('catcher') # need to make sure this is working as intended
-            print(self.hero.block_coordinates)
+            #print('catcher') # need to make sure this is working as intended
+            #print(self.hero.block_coordinates)
             self.grid.set_active_hero(self.hero)
             self.hero.player_action.move.reset_method_called_flag()
         #if self.hero.player_action.
@@ -89,10 +90,6 @@ class falling_blocks:
     
     def start_button_clicked(self):
         self.settings.game_active = True
-
-    def initialise_grid(self):
-        self.grid = Grid(self)
-        self.grid.initialise_squares()
         
     def update_screen(self):
         self.screen.fill((255, 255, 255))

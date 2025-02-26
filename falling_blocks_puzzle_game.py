@@ -5,7 +5,6 @@ from settings import Settings
 from grid import Grid
 from grid_squares import Square
 from button import Button
-from shapes import Shapes
 from random_shape import Random_Shape
 from hero import Hero
 
@@ -18,11 +17,7 @@ class falling_blocks:
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, 
                                                self.settings.screen_height))
-        
-
         self.grid = Grid(self)
-        self.grid.initialise_squares()
-
         self.button = Button(self.screen)
 
     def run_game(self):
@@ -94,7 +89,8 @@ class falling_blocks:
     def update_screen(self):
         self.screen.fill((255, 255, 255))
         self.grid.draw_border(self.screen)
-        self.grid.squares.draw(self.screen)
+        self.grid.cell_images.draw(self.screen)
+        #self.grid.squares.draw(self.screen)
         if self.settings.game_active == False:
             self.button.draw()# I think i need to draw a fresh screen each time
         pygame.display.flip()

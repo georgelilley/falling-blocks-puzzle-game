@@ -3,24 +3,23 @@ from settings import Settings
 from grid_squares import Square
 from get_individual_block_xy import get_individual_block_xy
 
+from cell import Cell
+
 class Grid:
 
     def __init__(self, fb_game):
         """Create the grid and set game space dimensions."""
         self.screen = fb_game.screen
         self.settings = Settings()
-
-    def initialise_squares(self):
-        """Initialise the grid."""
-        self.grid = {}
-        self.squares = pygame.sprite.Group()
-        print('self.grid = ', self.grid)
+        self.cells = {}
+        self.cell_images = pygame.sprite.Group()
         for x in range(0, 10):
             for y in range(0, 20):
-                self.grid_square = Square(self, x, y)
-                self.grid[(x, y)] = self.grid_square
-                self.squares.add(self.grid_square)
+                cell_id = (x, y)
+                self.cells[cell_id] = Cell(x, y)
+                self.cell_images.add(self.cells[cell_id].sprite)
 
+       
     def draw_border(self, game_screen):
         """
         Draws a Border around the grid this is important for uniformity as

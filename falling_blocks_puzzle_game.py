@@ -3,7 +3,6 @@ import sys
 
 from settings import Settings
 from grid import Grid
-from grid_squares import Square
 from button import Button
 from random_shape import Random_Shape
 from hero import Hero
@@ -19,10 +18,12 @@ class falling_blocks:
                                                self.settings.screen_height))
         self.grid = Grid(self)
         self.button = Button(self.screen)
+        self.tetrominos = []
 
     def run_game(self):
         while True:
             self._check_event()
+            self.grid.update()
             self.update_screen()
             if self.settings.game_active == True:
                 self.check_active_falling_shape()
@@ -30,13 +31,16 @@ class falling_blocks:
 
     def check_active_falling_shape(self):
         if self.settings.active_falling_shape == False:
-            self.create_new_falling_shape()
-            self.grid.set_active_hero(self.hero)
+            self.hero = Hero()
+            self.tetrominos.append(self.hero)
+            print(self.hero.block_coordinates)
+    #        self.create_new_falling_shape() # --
+    #        self.grid.set_active_hero(self.hero)
             self.settings.active_falling_shape = True
 
-    def create_new_falling_shape(self):
-        self.hero = Hero()
-        self.grid.set_active_hero(self.hero)
+    #def create_new_falling_shape(self):
+    #    self.hero = Hero()
+    #    self.grid.set_active_hero(self.hero)
 
     def _check_event(self):
         for event in pygame.event.get():
@@ -57,7 +61,7 @@ class falling_blocks:
     def IsGameKeyPressed(self, event):
         #print('active')
         key_actions = {
-            pygame.K_RIGHT: self.hero.player_action.move.right,
+            pygame.K_RIGHT: self.hero.player_action.move.right, # decouple from hero - it should be player action with all the methods and then the current tetromino is used 
             pygame.K_LEFT: self.hero.player_action.move.left,
             pygame.K_DOWN: self.hero.player_action.move.down,
             pygame.K_a: self.hero.player_action.rotate.left,

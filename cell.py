@@ -13,6 +13,16 @@ class Cell():
 
         self.sprite = CellSprite(x, y)
 
+    def make_empty(self):
+        self.occupied = False
+        self.tetromino_id = False
+        self.sprite.make_empty()
+    
+    def make_hero(self):
+        self.occupied = True
+        self.sprite.make_hero()
+        #self.tetromino_id = tetromino_id
+
     #def _create_cell_image(self, character=None):
     #    self.surface = pygame.Surface((self.settings.square_width, 
     #                                        self.settings.square_height))

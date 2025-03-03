@@ -49,8 +49,8 @@ class Hero:
                 },
         }
 
-    def get_individual_block_xy(self, coordinates):
-        return get_individual_block_xy(coordinates)
+    #def get_individual_block_xy(self, coordinates):
+    #    return get_individual_block_xy(coordinates)
         
     #def is_any_movement_method_called(self):
     #    return self._method_called

@@ -1,6 +1,5 @@
 import pygame
 from settings import Settings
-from grid_squares import Square
 from get_individual_block_xy import get_individual_block_xy
 
 from cell import Cell
@@ -10,6 +9,7 @@ class Grid:
     def __init__(self, fb_game):
         """Create the grid and set game space dimensions."""
         self.screen = fb_game.screen
+        self.game = fb_game
         self.settings = Settings()
         self.cells = {}
         self.cell_images = pygame.sprite.Group()
@@ -34,19 +34,37 @@ class Grid:
                          (560, self.settings.screen_height), width=1)
         pygame.draw.line(game_screen, self.colour, (160, 160), (self.settings.screen_width-160, 160))
 
-    def get_individual_block_xy(self, coordinates):
-        return get_individual_block_xy(coordinates)
+    def reset_cells(self):
+        for x in range(0, 10):
+            for y in range(0, 20):
+                cell_id = (x, y)
+                self.cells[cell_id].make_empty()
 
-    def set_active_hero(self, hero_instance):
-        self.hero = hero_instance
-        for block, coordinates in self.hero.block_coordinates.items():
-            x_value, y_value = self.get_individual_block_xy(coordinates)
-            self.grid[(x_value, y_value)].create_hero_square()
+    def update(self):
+        self.reset_cells()
+        if self.game.tetrominos:
+            for tetromino in self.game.tetrominos:
+                for block, coordinates in tetromino.block_coordinates.items():
+                    for key, value in coordinates.items():
+                        if key == 'x':
+                            x = value
+                        if key == 'y':
+                            y = value
+                    self.cells[x,y].make_hero()
+
+    #def get_individual_block_xy(self, coordinates):
+    #    return get_individual_block_xy(coordinates)
+
+    #def set_active_hero(self, hero_instance):
+    #    self.hero = hero_instance
+    #    for block, coordinates in self.hero.block_coordinates.items():
+    #        x_value, y_value = self.get_individual_block_xy(coordinates)
+    #        self.grid[(x_value, y_value)].create_hero_square()
             
-    def reset(self):
-        for block, coordinates in self.hero.block_coordinates.items():
-            x_value, y_value = self.get_individual_block_xy(coordinates)
-            self.grid[(x_value, y_value)].create_blank_square()
+    #def reset(self):
+    #    for block, coordinates in self.hero.block_coordinates.items():
+    #        x_value, y_value = self.get_individual_block_xy(coordinates)
+    #        self.grid[(x_value, y_value)].create_blank_square()
 
 
 

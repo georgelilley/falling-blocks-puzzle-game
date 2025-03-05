@@ -2,7 +2,6 @@ import numpy as np
 import copy
 
 from settings import Settings
-from rotate_point import rotate_point
 from get_individual_block_xy import get_individual_block_xy
 
 from player_action import PlayerAction
@@ -20,7 +19,6 @@ class Hero:
         self._method_called = False
 
         self.create_shape()
-        self.player_action = PlayerAction(self)
 
     def reset_method_called_flag(self):
         self._method_called = False

@@ -1,4 +1,4 @@
-# falling-blocks-puzzle-game
+### falling-blocks-puzzle-game
 
 A simple falling blocks puzzle game built with Python and Pygame.
 

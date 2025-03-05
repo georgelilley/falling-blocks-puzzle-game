@@ -4,9 +4,9 @@ A simple falling blocks puzzle game built with Python and Pygame.
 
 I'm currently working on implementing unit tests before continuing adding further functionality.
 
-#Installation
+# Installation
 
-#Prerequisites
+# Prerequisites
 
 -  Python 3.x
 -  Pygame

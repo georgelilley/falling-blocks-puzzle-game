@@ -6,7 +6,7 @@ I'm currently working on implementing unit tests before continuing adding furthe
 
 ## Installation
 
-### Prerequisites
+Prerequisites
 
 -  Python 3.x
 -  Pygame
